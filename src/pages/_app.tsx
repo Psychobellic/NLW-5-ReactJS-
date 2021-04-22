@@ -12,7 +12,9 @@ function MyApp({ Component, pageProps }) {
 				<Header />
 				<Component {...pageProps} />
 			</main>
-			<Player />
+			<div className={styles.playerDiv}>
+				<Player />
+			</div>
 		</div>
 	);
 }
