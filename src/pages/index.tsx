@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { api } from "../services/api";
 import { format, parseISO } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
@@ -42,7 +43,9 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 									objectFit="cover"
 								/>
 								<div className={styles.episodeDetails}>
-									<a href="">{episode.title}</a>
+									<Link href={`/episode/${episode.id}`}>
+										<a>{episode.title}</a>
+									</Link>
 									<p className={styles.pBig}>{episode.members}</p>
 									<p className={styles.pSmall}>{membersXS}</p>
 									<span>{episode.publishedAt}</span>
@@ -82,13 +85,15 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 										/>
 									</td>
 									<td>
-										<a href="">{episode.title}</a>
+										<Link href={`/episode/${episode.id}`}>
+											<a className={styles.title}>{episode.title}</a>
+										</Link>
 									</td>
 									<td>{episode.members}</td>
 									<td className={styles.publishedAt}>{episode.publishedAt}</td>
 									<td>{episode.durationString}</td>
 									<td>
-										<button type="button">
+										<button className={styles.playAllEpBtn} type="button">
 											<img src="/play-green.svg" alt="Rodar Episódio" />
 										</button>
 									</td>
