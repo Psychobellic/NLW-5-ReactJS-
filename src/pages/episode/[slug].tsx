@@ -28,6 +28,12 @@ export default function Episode({ episode }: EpisodeProps) {
 	return (
 		<div className={styles.episode}>
 			<div className={styles.thumbnailContainer}>
+				<Link href="/">
+					<button className={styles.playBtn} type="button">
+						<img src="/play.svg" alt="Tocar Episódio" />
+					</button>
+				</Link>
+
 				<Image
 					width={700}
 					height={160}
@@ -35,26 +41,22 @@ export default function Episode({ episode }: EpisodeProps) {
 					objectFit="cover"
 				/>
 
-				<button className={styles.playBtn} type="button">
-					<img src="/play.svg" alt="Tocar Episódio" />
-				</button>
-
-				<header>
-					<h1>{episode.title}</h1>
-					<span>{episode.members}</span>
-					<span>{episode.publishedAt}</span>
-					<span>{episode.durationString}</span>
-				</header>
-				<div
-					className={styles.description}
-					dangerouslySetInnerHTML={{ __html: episode.description }}
-				/>
+				<Link href="/">
+					<button className={styles.returnBtn} type="button">
+						<img src="/arrow-left.svg" alt="Voltar" />
+					</button>
+				</Link>
 			</div>
-			<Link href="http://localhost:3000">
-				<button className={styles.returnBtn} type="button">
-					<img src="/arrow-left.svg" alt="Voltar" />
-				</button>
-			</Link>
+			<header>
+				<h1>{episode.title}</h1>
+				<span>{episode.members}</span>
+				<span>{episode.publishedAt}</span>
+				<span>{episode.durationString}</span>
+			</header>
+			<div
+				className={styles.description}
+				dangerouslySetInnerHTML={{ __html: episode.description }}
+			/>
 		</div>
 	);
 }
