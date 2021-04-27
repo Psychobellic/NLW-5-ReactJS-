@@ -6,8 +6,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { convertDurationToTimeString } from "../../utils/convertDurationToString";
 import Image from "next/image";
+import { Helmet } from "react-helmet";
 
 import styles from "./episode.module.scss";
+import { usePlayer } from "../../contexts/PlayerContext";
 
 type Episode = {
 	id: number;
@@ -26,6 +28,8 @@ type EpisodeProps = {
 };
 
 export default function Episode({ episode }: EpisodeProps) {
+	const { play } = usePlayer();
+
 	const router = useRouter();
 	if (router.isFallback) {
 		return <p>Carregando...</p>;
@@ -33,11 +37,12 @@ export default function Episode({ episode }: EpisodeProps) {
 	return (
 		<div className={styles.episode}>
 			<div className={styles.thumbnailContainer}>
-				<Link href="/">
-					<button className={styles.playBtn} type="button">
-						<img src="/play.svg" alt="Tocar Episódio" />
-					</button>
-				</Link>
+				<button
+					className={styles.playBtn}
+					type="button"
+					onClick={() => play(episode)}>
+					<img src="/play.svg" alt="Tocar Episódio" />
+				</button>
 
 				<Image
 					width={700}
@@ -52,16 +57,21 @@ export default function Episode({ episode }: EpisodeProps) {
 					</button>
 				</Link>
 			</div>
+
 			<header>
 				<h1>{episode.title}</h1>
 				<span>{episode.members}</span>
 				<span>{episode.publishedAt}</span>
 				<span>{episode.durationString}</span>
 			</header>
+
 			<div
 				className={styles.description}
 				dangerouslySetInnerHTML={{ __html: episode.description }}
 			/>
+			<Helmet>
+				<title>{episode.title + " | Podcastr"}</title>
+			</Helmet>
 		</div>
 	);
 }
